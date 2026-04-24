@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - pip install -r requirements.txt
+
+  build:
+    commands:
+      - echo "[$(date)] Build phase started"
+      - echo "[$(date)] Application is ready for deployment to Elastic Beanstalk"
+      - echo "[$(date)] Build completed successfully :)"
+
+artifacts:
+  files:
+    - '**/*'
