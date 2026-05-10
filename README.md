@@ -71,6 +71,8 @@ Todas las rutas protegidas exigen el header:
 
 ### Con `curl`
 
+
+
 **POST — agregar email (201):**
 
 ```bash

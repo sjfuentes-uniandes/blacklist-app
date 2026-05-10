@@ -3,14 +3,38 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - pip install -r requirements.txt
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 259151462184.dkr.ecr.us-east-1.amazonaws.com
+      - echo Installing dependencies for tests...
+      - pip install -r requirements.txt -r requirements-dev.txt
 
   build:
     commands:
-      - echo "[$(date)] Build phase started"
-      - echo "[$(date)] Application is ready for deployment to Elastic Beanstalk"
-      - echo "[$(date)] Build completed successfully :)"
+      - echo Running unit tests...
+      - pytest tests/ -v
+      - echo Building the Docker image...
+      - docker build -t blacklist-app .
+      - docker tag blacklist-app:latest 259151462184.dkr.ecr.us-east-1.amazonaws.com/blacklist-app:latest
+
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push 259151462184.dkr.ecr.us-east-1.amazonaws.com/blacklist-app:latest
+      - echo Writing Image Definitions file...
+      - printf '[{"name":"blacklist-container","imageUri":"259151462184.dkr.ecr.us-east-1.amazonaws.com/blacklist-app:latest"}]' > imagedefinitions.json
+      - printf '{"ImageURI":"259151462184.dkr.ecr.us-east-1.amazonaws.com/blacklist-app:latest"}' > imageDetail.json
+      - cat imagedefinitions.json
 
 artifacts:
   files:
     - '**/*'
+    - imagedefinitions.json
+    - imageDetail.json
+  secondary-artifacts:
+    DefinitionArtifact:
+      files:
+        - appspec.json
+        - taskdef.json
+    ImageArtifact:
+      files:
+        - imageDetail.json

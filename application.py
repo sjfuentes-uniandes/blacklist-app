@@ -7,9 +7,10 @@ from resources.blacklist import BlacklistResource, BlacklistQueryResource
 from schemas import ma
 
 
-def create_app():
+def create_app(config_overrides=None):
     app = Flask(__name__)
     app.config.from_object(Config)
+    app.config.update(config_overrides or {})
 
     db.init_app(app)
     ma.init_app(app)
