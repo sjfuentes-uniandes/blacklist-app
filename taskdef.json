@@ -14,7 +14,7 @@
       ],
       "environment": [
         {"name": "DB_HOST", "value": "blacklist-db.c61e8q6aqwiu.us-east-1.rds.amazonaws.com"},
-        {"name": "DB_NAME", "value": "blacklist-db"},
+        {"name": "DB_NAME", "value": "postgres"},
         { "name": "DB_USER", "value": "postgres"},
         {"name": "DB_PASSWORD", "value": "password"},
         {"name": "DB_PORT", "value": "5432"}
