@@ -14,11 +14,11 @@
       ],
       "environment": [
         {"name": "DB_HOST", "value": "blacklist-db.c61e8q6aqwiu.us-east-1.rds.amazonaws.com"},
-        {"name": "DB_NAME", "value": "postgres"},
+        {"name": "DB_NAME", "value": "blacklist_db"},
         {"name": "DB_USER", "value": "postgres"},
         {"name": "DB_PASSWORD", "value": "password"},
         {"name": "DB_PORT", "value": "5432"},
-        {"name": "DATABASE_URL", "value": "postgresql://postgres:password@blacklist-db.c61e8q6aqwiu.us-east-1.rds.amazonaws.com:5432/postgres"}
+        {"name": "DATABASE_URL", "value": "postgresql://postgres:password@blacklist-db.c61e8q6aqwiu.us-east-1.rds.amazonaws.com:5432/blacklist_db"}
       ]
     }
   ],
